@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders App</title>
+</head>
+<body>
+<h1>Orders</h1>
+
+<form method="post">
+    {{ form.hidden_tag() }}
+    {{ form.book_id.label }}: {{ form.book_id() }}<br>
+    {{ form.customer_id.label }}: {{ form.customer_id() }}<br>
+    {{ form.submit() }}
+</form>
+
+<h2>All Orders</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Book ID</th>
+            <th>Customer ID</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order[0] }}</td>
+            <td>{{ order[1] }}</td>
+            <td>{{ order[2] }}</td>
+            <td>
+                <form action="{{ url_for('delete_order', order_id=order[0]) }}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
